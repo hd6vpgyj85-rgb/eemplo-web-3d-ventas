@@ -1,5 +1,5 @@
 /* ============================================================
-   AURA · Renderizado de la página de producto
+   YUKI · Renderizado de la página de producto
    Lee ?id= de la URL y muestra imagen, sabor e ingredientes.
    ============================================================ */
 (function () {
@@ -10,7 +10,7 @@
   const p = getProduct(id) || PRODUCTS[0];
   const main = document.getElementById("productMain");
 
-  document.title = "AURA · " + p.name;
+  document.title = "YUKI · " + p.name;
 
   // Tema de color de la página según el producto
   const root = document.body;
@@ -26,7 +26,7 @@
   const othersHTML = PRODUCTS.filter((o) => o.id !== p.id)
     .map(
       (o) =>
-        `<a class="mini" href="producto.html?id=${o.id}">${bottleSVG(o)}` +
+        `<a class="mini" href="producto.html?id=${o.id}">${productImage(o, "", true)}` +
         `<span>${o.name}</span></a>`
     )
     .join("");
@@ -41,9 +41,9 @@
           <h1><span class="grad">${p.name}</span></h1>
           <p class="lead">${p.tagline}</p>
           <div class="quick-facts">
-            <div class="qf"><b>${p.kcal}</b><span>kcal / 100 ml</span></div>
-            <div class="qf"><b>100%</b><span>Fruta real</span></div>
-            <div class="qf"><b>330 ml</b><span>Botella</span></div>
+            <div class="qf"><b>${p.kcal}</b><span>kcal aprox.</span></div>
+            <div class="qf"><b>Matcha</b><span>Ceremonial</span></div>
+            <div class="qf"><b>500 ml</b><span>Vaso</span></div>
           </div>
           <a href="index.html#bebidas" class="btn btn-primary">← Ver el carrusel</a>
         </div>
@@ -51,7 +51,7 @@
           <span class="ripple"></span>
           <span class="ripple"></span>
           <span class="ripple"></span>
-          ${bottleSVG(p)}
+          ${productImage(p)}
         </div>
       </div>
     </section>

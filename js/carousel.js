@@ -1,15 +1,32 @@
 /* ============================================================
-   AURA · Carrusel 3D + interacciones de la portada
+   YUKI · Carrusel 3D + interacciones de la portada
    ============================================================ */
 (function () {
   "use strict";
+
+  /* ---------- 0. Utilidades de color ---------- */
+  function hexToRgba(hex, alpha) {
+    const h = hex.replace("#", "");
+    const r = parseInt(h.substring(0, 2), 16);
+    const g = parseInt(h.substring(2, 4), 16);
+    const b = parseInt(h.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  function washGradient(p) {
+    return [
+      `radial-gradient(46% 50% at 24% 18%, ${hexToRgba(p.accent, 0.4)}, transparent 62%)`,
+      `radial-gradient(50% 55% at 82% 30%, ${hexToRgba(p.color, 0.32)}, transparent 62%)`,
+      `radial-gradient(60% 60% at 50% 100%, ${hexToRgba(p.colorDark, 0.4)}, transparent 68%)`,
+    ].join(", ");
+  }
 
   /* ---------- 1. Construir el carrusel ---------- */
   const ring = document.getElementById("ring");
   const dotsWrap = document.getElementById("dots");
   const stage = document.getElementById("stage");
   const n = PRODUCTS.length;
-  const angle = 360 / n; // grados entre botellas
+  const angle = 360 / n; // grados entre bebidas
 
   ring.style.setProperty("--angle", angle + "deg");
 
@@ -20,7 +37,7 @@
     a.style.setProperty("--i", i);
     a.dataset.index = i;
     a.innerHTML =
-      `<div class="cell-inner">${bottleSVG(p, "cell-bottle")}` +
+      `<div class="cell-inner">${productImage(p, "cell-cup", true)}` +
       `<div class="cell-label"><div class="cell-name">${p.name}</div>` +
       `<div class="cell-cta">Ver bebida →</div></div></div>`;
     ring.appendChild(a);
@@ -35,6 +52,30 @@
   const cells = Array.from(ring.querySelectorAll(".cell"));
   const dots = Array.from(dotsWrap.querySelectorAll(".dot-btn"));
 
+  /* ---------- 1b. Fondo adaptativo (crossfade por bebida activa) ---------- */
+  const washA = document.getElementById("washA");
+  const washB = document.getElementById("washB");
+  let washFront = washA;
+  let washBack = washB;
+
+  if (washA && washB) {
+    washA.style.background = washGradient(PRODUCTS[0]);
+    washA.classList.add("show");
+  }
+
+  function updateBackground(index) {
+    if (!washA || !washB) return;
+    const p = PRODUCTS[index];
+    washBack.style.background = washGradient(p);
+    // forzar reflow para que la transición de opacidad se aprecie
+    void washBack.offsetWidth;
+    washBack.classList.add("show");
+    washFront.classList.remove("show");
+    const tmp = washFront;
+    washFront = washBack;
+    washBack = tmp;
+  }
+
   /* ---------- 2. Estado y bucle de animación ---------- */
   let rotation = 0; // giro actual del anillo (grados)
   let velocity = -0.18; // giro automático: negativo => entra por la derecha
@@ -46,15 +87,16 @@
   function render() {
     ring.style.setProperty("--rot", rotation + "deg");
 
-    // Índice de la botella que mira al frente
+    // Índice de la bebida que mira al frente
     const active = ((Math.round(-rotation / angle) % n) + n) % n;
     if (active !== lastActive) {
       cells.forEach((c, i) => c.classList.toggle("is-active", i === active));
       dots.forEach((d, i) => d.classList.toggle("active", i === active));
       lastActive = active;
+      updateBackground(active);
     }
 
-    // Opacidad / profundidad por botella según su ángulo real hacia el frente
+    // Opacidad / profundidad por bebida según su ángulo real hacia el frente
     cells.forEach((c, i) => {
       let a = (i * angle + rotation) % 360;
       if (a > 180) a -= 360;
@@ -62,7 +104,7 @@
       const front = Math.abs(a); // 0 = al frente, 180 = detrás
       c.style.opacity = (1 - (front / 180) * 0.72).toFixed(3);
       c.style.zIndex = Math.round(1000 - front);
-      // desactivar el clic en las botellas de atrás
+      // desactivar el clic en las bebidas de atrás
       c.style.pointerEvents = front > 60 ? "none" : "auto";
     });
   }
@@ -79,7 +121,7 @@
 
   /* ---------- 3. Navegación por índice / flechas ---------- */
   function goTo(i) {
-    // llevar la botella i al frente por el camino más corto
+    // llevar la bebida i al frente por el camino más corto
     const target = -i * angle;
     let diff = ((target - rotation) % 360 + 540) % 360 - 180;
     rotation += diff;
@@ -134,7 +176,7 @@
     if (!dragging) return;
     dragging = false;
     velocity = autoSpeed;
-    // fijar a la botella más cercana
+    // fijar a la bebida más cercana
     const nearest = Math.round(-rotation / angle);
     const target = -nearest * angle;
     let diff = ((target - rotation) % 360 + 540) % 360 - 180;
@@ -169,22 +211,22 @@
   render();
   requestAnimationFrame(tick);
 
-  /* ---------- 5. Botellas flotantes del hero ---------- */
+  /* ---------- 5. Vasos flotantes del hero ---------- */
   const floaties = document.getElementById("heroFloaties");
   if (floaties) {
     const pick = [PRODUCTS[0], PRODUCTS[3], PRODUCTS[4], PRODUCTS[2]];
     ["f1", "f2", "f3", "f4"].forEach((cls, i) => {
       const wrap = document.createElement("div");
       wrap.className = "floaty " + cls;
-      wrap.innerHTML = bottleSVG(pick[i % pick.length]);
+      wrap.innerHTML = productImage(pick[i % pick.length], "", true);
       floaties.appendChild(wrap);
     });
   }
 
-  /* ---------- 6. Botella de la sección historia ---------- */
+  /* ---------- 6. Vaso de la sección historia ---------- */
   const showcase = document.getElementById("historiaShowcase");
   if (showcase) {
-    showcase.innerHTML = bottleSVG(PRODUCTS[5]);
+    showcase.innerHTML = productImage(PRODUCTS[4]);
   }
 
   /* ---------- 7. Navbar: scroll + menú móvil ---------- */
@@ -221,7 +263,7 @@
       e.preventDefault();
       const msg = document.getElementById("formMsg");
       const email = document.getElementById("email").value.trim();
-      msg.textContent = "¡Gracias! Te avisaremos en " + email + " 🍹";
+      msg.textContent = "¡Gracias! Te avisaremos en " + email + " 🍵";
       form.reset();
     });
   }

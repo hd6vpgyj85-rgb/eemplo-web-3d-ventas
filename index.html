@@ -3,21 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AURA · Bebidas Naturales</title>
+    <title>YUKI · Matcha & Boba</title>
     <meta
       name="description"
-      content="AURA — bebidas naturales elaboradas con fruta real. Descubre nuestros sabores en un carrusel 3D interactivo."
+      content="YUKI — matcha ceremonial y boba artesanal. Descubre nuestras bebidas en un carrusel 3D interactivo."
     />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23ff7a18'/%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%236a9a44'/%3E%3C/svg%3E"
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <!-- ---------- NAV ---------- -->
     <nav class="nav" id="nav">
-      <a class="brand" href="#top"><span class="dot"></span>AURA</a>
+      <a class="brand" href="#top"><span class="dot"></span>YUKI</a>
       <div class="nav-links" id="navLinks">
         <a href="#top">Inicio</a>
         <a href="#bebidas">Bebidas</a>
@@ -33,14 +33,15 @@
       <div class="hero-bg"></div>
       <div class="hero-floaties" id="heroFloaties"></div>
       <div class="container">
-        <p class="eyebrow">Bebidas naturales · 100% fruta real</p>
-        <h1>El sabor puro de<br /><span class="grad">la naturaleza</span></h1>
+        <p class="eyebrow">Matcha ceremonial · Boba artesanal</p>
+        <h1>El ritual del<br /><span class="grad">matcha, en tus manos</span></h1>
         <p>
-          Seis sabores elaborados con fruta prensada, sin azúcares añadidos y con
-          esa frescura que solo la naturaleza sabe dar. Gíralos, elígelos, siéntelos.
+          Cinco preparaciones de matcha con leche y perlas de tapioca en almíbar
+          de panela, servidas capa por capa o mezcladas a tu gusto. Gíralas,
+          elígelas, saboréalas.
         </p>
         <div class="hero-cta">
-          <a href="#bebidas" class="btn btn-primary">Descubrir sabores →</a>
+          <a href="#bebidas" class="btn btn-primary">Descubrir bebidas →</a>
           <a href="#historia" class="btn btn-ghost">Nuestra historia</a>
         </div>
       </div>
@@ -49,14 +50,18 @@
 
     <!-- ---------- BEBIDAS · CARRUSEL 3D ---------- -->
     <section class="section bebidas" id="bebidas">
+      <div class="bebidas-bg" id="bebidasBg" aria-hidden="true">
+        <div class="wash wash-a" id="washA"></div>
+        <div class="wash wash-b" id="washB"></div>
+      </div>
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">Nuestra colección</p>
           <h2>Explora las bebidas en 3D</h2>
           <p>
-            Las botellas giran en círculo entrando desde la derecha. Arrastra para
-            girar, usa las flechas y toca una botella para descubrir su sabor e
-            ingredientes.
+            Los vasos giran en círculo entrando desde la derecha, y el fondo cambia
+            de color con cada bebida. Arrastra para girar, usa las flechas y toca
+            un vaso para descubrir su sabor e ingredientes.
           </p>
         </div>
 
@@ -70,7 +75,7 @@
           <button class="arrow" id="next" aria-label="Siguiente">›</button>
         </div>
         <p class="carousel-hint">
-          Toca la botella del frente para abrir su página de producto.
+          Toca el vaso del frente para abrir su página de producto.
         </p>
       </div>
     </section>
@@ -79,30 +84,30 @@
     <section class="section" id="beneficios">
       <div class="container">
         <div class="section-head reveal">
-          <p class="eyebrow">Por qué AURA</p>
-          <h2>Naturaleza embotellada</h2>
-          <p>Cada botella es una promesa de pureza, sabor y bienestar.</p>
+          <p class="eyebrow">Por qué YUKI</p>
+          <h2>Matcha hecho con intención</h2>
+          <p>Cada vaso es una promesa de calidad, técnica y sabor real.</p>
         </div>
         <div class="grid-cards">
           <article class="card reveal">
-            <div class="ic">🍊</div>
-            <h3>Fruta real prensada</h3>
-            <p>Hasta un 34% de zumo y pulpa natural. Nada de concentrados extraños.</p>
+            <div class="ic">🍵</div>
+            <h3>Matcha ceremonial</h3>
+            <p>Importado y batido a mano para lograr esa espuma fina y ese verde intenso.</p>
           </article>
           <article class="card reveal">
-            <div class="ic">🚫</div>
-            <h3>Sin azúcar añadida</h3>
-            <p>El dulzor viene de la propia fruta. Ligero, limpio y equilibrado.</p>
+            <div class="ic">🧋</div>
+            <h3>Boba artesanal</h3>
+            <p>Perlas de tapioca cocidas a diario en almíbar de panela, nunca de bolsa.</p>
           </article>
           <article class="card reveal">
-            <div class="ic">🌿</div>
-            <h3>Ingredientes limpios</h3>
-            <p>Sin colorantes ni conservantes artificiales. Lista corta y honesta.</p>
+            <div class="ic">🥛</div>
+            <h3>Leche de calidad</h3>
+            <p>Leche entera fresca o alternativas vegetales, según cómo te guste tu matcha.</p>
           </article>
           <article class="card reveal">
             <div class="ic">♻️</div>
-            <h3>Botella reciclable</h3>
-            <p>Envase 100% reciclable y procesos con energía renovable.</p>
+            <h3>Vasos reciclables</h3>
+            <p>Empaques 100% reciclables y pajillas biodegradables en cada pedido.</p>
           </article>
         </div>
       </div>
@@ -113,22 +118,23 @@
       <div class="container split">
         <div class="txt reveal">
           <p class="eyebrow">Nuestra historia</p>
-          <h2>Nacidos del huerto, hechos para ti</h2>
+          <h2>De una barra pequeña a tu ritual diario</h2>
           <p>
-            AURA empezó en un pequeño huerto familiar donde exprimíamos fruta para
-            los que pasaban a visitarnos. Hoy seguimos con la misma idea: capturar
-            el instante exacto de madurez de cada fruta y llevarlo a tu botella sin
-            atajos ni artificios.
+            YUKI nació en una barra de tres metros donde batíamos matcha a mano,
+            taza por taza, para quien se acercara a probarlo. Hoy seguimos con la
+            misma idea: técnica cuidada, ingredientes reales y ese momento de pausa
+            que un buen matcha siempre trae consigo.
           </p>
           <p>
-            Trabajamos con productores locales y prensamos en frío para conservar
-            aroma, color y vitaminas. El resultado es una bebida viva.
+            Trabajamos con matcha ceremonial importado y cocinamos nuestra propia
+            tapioca cada mañana. Nada de polvos instantáneos ni saborizantes de
+            laboratorio.
           </p>
           <div class="stat-row">
-            <div class="stat"><b>2016</b><span>Primer huerto</span></div>
-            <div class="stat"><b>6</b><span>Sabores</span></div>
-            <div class="stat"><b>100%</b><span>Fruta real</span></div>
-            <div class="stat"><b>0</b><span>Azúcar añadida</span></div>
+            <div class="stat"><b>2019</b><span>Primera barra</span></div>
+            <div class="stat"><b>5</b><span>Preparaciones</span></div>
+            <div class="stat"><b>100%</b><span>Matcha ceremonial</span></div>
+            <div class="stat"><b>Diaria</b><span>Tapioca fresca</span></div>
           </div>
         </div>
         <div class="showcase reveal" id="historiaShowcase"></div>
@@ -139,10 +145,11 @@
     <section class="section" id="contacto">
       <div class="container">
         <div class="cta-band reveal">
-          <p class="eyebrow">Únete al club AURA</p>
+          <p class="eyebrow">Únete al club YUKI</p>
           <h2>Recibe lanzamientos y ofertas</h2>
           <p style="color: var(--muted)">
-            Suscríbete y sé el primero en probar nuestros nuevos sabores de temporada.
+            Suscríbete y sé el primero en probar nuestras nuevas preparaciones de
+            temporada.
           </p>
           <form class="newsletter" id="newsletter">
             <input
@@ -164,9 +171,10 @@
       <div class="container">
         <div class="footer-grid">
           <div>
-            <div class="brand"><span class="dot"></span>AURA</div>
+            <div class="brand"><span class="dot"></span>YUKI</div>
             <p style="max-width: 260px">
-              Bebidas naturales elaboradas con fruta real y mucho cariño.
+              Matcha ceremonial y boba artesanal, preparados con técnica e
+              ingredientes reales.
             </p>
           </div>
           <div class="footer-links">
@@ -178,12 +186,12 @@
             <div>
               <a href="#contacto">Contacto</a>
               <a href="#top">Inicio</a>
-              <a href="#bebidas">Sabores</a>
+              <a href="#bebidas">Menú</a>
             </div>
           </div>
         </div>
         <div class="footer-bottom">
-          © 2026 AURA Bebidas Naturales · Sitio de demostración.
+          © 2026 YUKI Matcha & Boba · Sitio de demostración.
         </div>
       </div>
     </footer>

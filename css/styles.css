@@ -1,5 +1,5 @@
 /* ============================================================
-   AURA · Bebidas Naturales — Hoja de estilos
+   YUKI · Matcha & Boba — Hoja de estilos
    ============================================================ */
 
 :root {
@@ -9,8 +9,8 @@
   --text: #eef1f6;
   --muted: #9aa2b1;
   --line: rgba(255, 255, 255, 0.08);
-  --brand: #ff7a18;
-  --brand-2: #9b4dff;
+  --brand: #6a9a44;
+  --brand-2: #d9a441;
   --radius: 18px;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
   --font: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial,
@@ -106,8 +106,8 @@ h3 {
 
 .btn-primary {
   color: #12151d;
-  background: linear-gradient(135deg, var(--brand), #ffb347);
-  box-shadow: 0 12px 30px rgba(255, 122, 24, 0.35);
+  background: linear-gradient(135deg, var(--brand), #a7d46a);
+  box-shadow: 0 12px 30px rgba(106, 154, 68, 0.35);
 }
 
 .btn-ghost {
@@ -156,7 +156,7 @@ h3 {
   height: 14px;
   border-radius: 50%;
   background: conic-gradient(from 0deg, var(--brand), var(--brand-2), var(--brand));
-  box-shadow: 0 0 16px rgba(255, 122, 24, 0.6);
+  box-shadow: 0 0 16px rgba(106, 154, 68, 0.6);
 }
 
 .nav-links {
@@ -200,11 +200,11 @@ h3 {
   inset: 0;
   background: radial-gradient(
       60% 60% at 20% 15%,
-      rgba(255, 122, 24, 0.28),
+      rgba(106, 154, 68, 0.32),
       transparent 60%
     ),
-    radial-gradient(50% 50% at 85% 25%, rgba(155, 77, 255, 0.28), transparent 60%),
-    radial-gradient(60% 60% at 50% 100%, rgba(0, 200, 180, 0.16), transparent 60%),
+    radial-gradient(50% 50% at 85% 25%, rgba(217, 164, 65, 0.24), transparent 60%),
+    radial-gradient(60% 60% at 50% 100%, rgba(106, 154, 68, 0.14), transparent 60%),
     var(--bg);
   z-index: -2;
 }
@@ -224,7 +224,7 @@ h3 {
 }
 
 .hero h1 .grad {
-  background: linear-gradient(120deg, var(--brand), #ffcf6a 40%, var(--brand-2));
+  background: linear-gradient(120deg, var(--brand), #bfe08a 40%, var(--brand-2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -307,7 +307,36 @@ h3 {
 
 /* ---------- Carrusel 3D ---------- */
 .bebidas {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(180deg, var(--bg), #0a0c11 40%, var(--bg));
+}
+
+/* Fondo adaptativo: cada bebida activa tiñe el fondo de la sección.
+   Dos capas (wash-a/wash-b) se alternan con crossfade suave. */
+.bebidas-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.wash {
+  position: absolute;
+  inset: -20%;
+  opacity: 0;
+  filter: blur(50px);
+  transition: opacity 1.15s ease;
+  will-change: opacity;
+}
+
+.wash.show {
+  opacity: 1;
+}
+
+.bebidas .container {
+  position: relative;
+  z-index: 1;
 }
 
 .stage {
@@ -324,25 +353,6 @@ h3 {
   cursor: grabbing;
 }
 
-.stage::before {
-  /* halo de luz detrás del carrusel */
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 46%;
-  width: 620px;
-  height: 620px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    circle,
-    rgba(255, 122, 24, 0.18),
-    rgba(155, 77, 255, 0.12) 40%,
-    transparent 68%
-  );
-  filter: blur(10px);
-  z-index: 0;
-}
-
 .ring {
   position: absolute;
   inset: 0;
@@ -355,10 +365,10 @@ h3 {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 230px;
-  height: 470px;
-  margin-left: -115px;
-  margin-top: -235px;
+  width: 210px;
+  height: 430px;
+  margin-left: -105px;
+  margin-top: -215px;
   transform: rotateY(calc(var(--i) * var(--angle)))
     translateZ(var(--radius, 430px));
   transform-style: preserve-3d;
@@ -374,14 +384,30 @@ h3 {
   transition: transform 0.3s ease;
 }
 
-.cell .bottle {
-  width: 200px;
+.cup {
+  display: block;
+}
+
+.cup img {
+  width: 100%;
   height: auto;
+  display: block;
+}
+
+.cell .cup {
+  width: 180px;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.cell.is-active .bottle {
+.cell .cup img {
+  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, 0.5));
+}
+
+.cell.is-active .cup {
   transform: scale(1.05);
+}
+
+.cell.is-active .cup img {
   filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.55));
 }
 
@@ -408,10 +434,6 @@ h3 {
   color: var(--brand);
   letter-spacing: 1px;
   font-weight: 700;
-}
-
-.bottle-shadow {
-  fill: rgba(0, 0, 0, 0.28);
 }
 
 /* Controles del carrusel */
@@ -487,7 +509,7 @@ h3 {
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 122, 24, 0.4);
+  border-color: rgba(106, 154, 68, 0.4);
 }
 
 .card .ic {
@@ -498,7 +520,7 @@ h3 {
   place-items: center;
   font-size: 1.5rem;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, rgba(255, 122, 24, 0.2), rgba(155, 77, 255, 0.2));
+  background: linear-gradient(135deg, rgba(106, 154, 68, 0.22), rgba(217, 164, 65, 0.2));
 }
 
 .card h3 {
@@ -554,20 +576,20 @@ h3 {
   place-items: center;
   min-height: 380px;
   border-radius: var(--radius);
-  background: radial-gradient(circle at 50% 40%, rgba(255, 122, 24, 0.16), transparent 70%),
+  background: radial-gradient(circle at 50% 40%, rgba(106, 154, 68, 0.18), transparent 70%),
     var(--bg-soft);
   border: 1px solid var(--line);
   overflow: hidden;
 }
 
-.showcase .bottle {
-  width: 160px;
+.showcase .cup {
+  width: 180px;
   animation: bob 6s ease-in-out infinite;
 }
 
 /* ---------- Contacto / Newsletter ---------- */
 .cta-band {
-  background: linear-gradient(135deg, rgba(255, 122, 24, 0.14), rgba(155, 77, 255, 0.14));
+  background: linear-gradient(135deg, rgba(106, 154, 68, 0.16), rgba(217, 164, 65, 0.14));
   border: 1px solid var(--line);
   border-radius: 28px;
   padding: clamp(36px, 6vw, 68px);
@@ -701,10 +723,13 @@ footer {
   position: relative;
 }
 
-.product-visual .bottle {
-  width: min(340px, 70vw);
-  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.6));
+.product-visual .cup {
+  width: min(360px, 72vw);
   animation: bob 6s ease-in-out infinite;
+}
+
+.product-visual .cup img {
+  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.6));
 }
 
 .product-visual .ripple {
@@ -871,8 +896,8 @@ footer {
   border-color: rgba(255, 255, 255, 0.25);
 }
 
-.mini .bottle {
-  width: 70px;
+.mini .cup {
+  width: 76px;
   margin: 0 auto 10px;
 }
 
@@ -967,11 +992,11 @@ footer {
   }
   .cell {
     --radius: 260px;
-    width: 180px;
-    margin-left: -90px;
+    width: 160px;
+    margin-left: -80px;
   }
-  .cell .bottle {
-    width: 150px;
+  .cell .cup {
+    width: 130px;
   }
   .ring {
     transform: translateZ(-240px) rotateY(var(--rot, 0deg));
@@ -983,11 +1008,14 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .floaty,
-  .product-visual .bottle,
-  .showcase .bottle,
+  .product-visual .cup,
+  .showcase .cup,
   .scroll-hint,
   .ripple {
     animation: none !important;
+  }
+  .wash {
+    transition: none;
   }
   html {
     scroll-behavior: auto;
