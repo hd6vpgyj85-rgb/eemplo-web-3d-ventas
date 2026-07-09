@@ -27,6 +27,9 @@
   const stage = document.getElementById("stage");
   const n = PRODUCTS.length;
   const angle = 360 / n; // grados entre bebidas
+  // ventana angular en la que una bebida es visible: más allá de esto
+  // queda completamente oculta, y solo aparece mientras se desliza hacia el frente.
+  const FADE_WINDOW = angle * 0.8;
 
   ring.style.setProperty("--angle", angle + "deg");
 
@@ -96,16 +99,19 @@
       updateBackground(active);
     }
 
-    // Opacidad / profundidad por bebida según su ángulo real hacia el frente
+    // Opacidad / profundidad por bebida según su ángulo real hacia el frente.
+    // En reposo (front >= FADE_WINDOW) queda oculta; solo se revela mientras
+    // se desliza hacia la posición frontal, con una caída suave (ease-out).
     cells.forEach((c, i) => {
       let a = (i * angle + rotation) % 360;
       if (a > 180) a -= 360;
       if (a < -180) a += 360;
-      const front = Math.abs(a); // 0 = al frente, 180 = detrás
-      c.style.opacity = (1 - (front / 180) * 0.72).toFixed(3);
+      const front = Math.abs(a); // 0 = al frente, angle = en reposo
+      const t = Math.min(front / FADE_WINDOW, 1);
+      c.style.opacity = (1 - t * t).toFixed(3);
       c.style.zIndex = Math.round(1000 - front);
-      // desactivar el clic en las bebidas de atrás
-      c.style.pointerEvents = front > 60 ? "none" : "auto";
+      // solo la bebida activa es clicable; el resto está oculta o en transición
+      c.style.pointerEvents = i === active ? "auto" : "none";
     });
   }
 
@@ -131,9 +137,10 @@
 
   function step(dir) {
     // dir = -1 (anterior) / +1 (siguiente)
-    rotation -= dir * angle;
-    velocity = autoSpeed;
-    pulse();
+    // se apoya en goTo() para encajar exacto, sin arrastrar el drift
+    // acumulado del giro automático (evita que quede un resto visible).
+    const current = ((Math.round(-rotation / angle) % n) + n) % n;
+    goTo(((current + dir) % n + n) % n);
   }
 
   // pausa breve tras interacción para que se aprecie el sabor elegido
@@ -227,6 +234,23 @@
   const showcase = document.getElementById("historiaShowcase");
   if (showcase) {
     showcase.innerHTML = productImage(PRODUCTS[4]);
+  }
+
+  /* ---------- 6b. Cards de producto (sección Beneficios) ----------
+     Placeholder con las fotos ya recortadas de cada bebida; listas para
+     reemplazarse por las imágenes definitivas que el cliente provea. */
+  const productCards = document.getElementById("productCards");
+  if (productCards) {
+    PRODUCTS.forEach((p) => {
+      const a = document.createElement("a");
+      a.className = "product-card reveal";
+      a.href = "producto.html?id=" + p.id;
+      a.innerHTML =
+        `<div class="pc-media">${productImage(p, "", true)}</div>` +
+        `<div class="pc-body"><span class="pc-tag">${p.flavor}</span>` +
+        `<h3>${p.name}</h3></div>`;
+      productCards.appendChild(a);
+    });
   }
 
   /* ---------- 7. Navbar: scroll + menú móvil ---------- */

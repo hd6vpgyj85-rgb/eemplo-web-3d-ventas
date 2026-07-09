@@ -151,14 +151,6 @@ h3 {
   font-size: 1.15rem;
 }
 
-.brand .dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, var(--brand), var(--brand-2), var(--brand));
-  box-shadow: 0 0 16px rgba(106, 154, 68, 0.6);
-}
-
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -291,18 +283,6 @@ h3 {
   50% {
     transform: translateY(-26px) rotate(4deg);
   }
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 26px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--muted);
-  font-size: 0.8rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  animation: bob 3s ease-in-out infinite;
 }
 
 /* ---------- Carrusel 3D ---------- */
@@ -492,45 +472,56 @@ h3 {
   margin-top: 16px;
 }
 
-/* ---------- Beneficios ---------- */
-.grid-cards {
+/* ---------- Beneficios · cards de producto ---------- */
+.product-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 22px;
 }
 
-.card {
+.product-card {
+  display: block;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 30px 26px;
+  overflow: hidden;
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
-.card:hover {
+.product-card:hover {
   transform: translateY(-6px);
   border-color: rgba(106, 154, 68, 0.4);
 }
 
-.card .ic {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+.pc-media {
   display: grid;
   place-items: center;
-  font-size: 1.5rem;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, rgba(106, 154, 68, 0.22), rgba(217, 164, 65, 0.2));
+  padding: 26px 10px 6px;
+  background: radial-gradient(circle at 50% 20%, rgba(106, 154, 68, 0.18), transparent 70%);
 }
 
-.card h3 {
-  font-size: 1.2rem;
+.pc-media .cup {
+  width: 130px;
 }
 
-.card p {
-  color: var(--muted);
+.pc-body {
+  padding: 16px 20px 26px;
+  text-align: center;
+}
+
+.pc-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 6px;
+}
+
+.pc-body h3 {
+  font-size: 1.1rem;
   margin: 0;
-  font-size: 0.96rem;
 }
 
 /* ---------- Historia ---------- */
@@ -547,27 +538,6 @@ h3 {
 
 .split .txt p {
   color: var(--muted);
-}
-
-.stat-row {
-  display: flex;
-  gap: 30px;
-  margin-top: 26px;
-  flex-wrap: wrap;
-}
-
-.stat b {
-  display: block;
-  font-size: 2rem;
-  background: linear-gradient(120deg, var(--brand), var(--brand-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.stat span {
-  color: var(--muted);
-  font-size: 0.85rem;
 }
 
 .showcase {
@@ -588,16 +558,42 @@ h3 {
 }
 
 /* ---------- Contacto / Newsletter ---------- */
+/* --cta-photo queda "none" hasta que se agregue la imagen de fondo real;
+   el degradado de marca sirve de respaldo mientras tanto. */
 .cta-band {
-  background: linear-gradient(135deg, rgba(106, 154, 68, 0.16), rgba(217, 164, 65, 0.14));
+  --cta-photo: none;
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 28px;
   padding: clamp(36px, 6vw, 68px);
   text-align: center;
+  background-color: var(--bg-soft);
+  background-image: linear-gradient(
+      165deg,
+      rgba(6, 8, 6, 0.6),
+      rgba(6, 8, 6, 0.32) 50%,
+      rgba(6, 8, 6, 0.64)
+    ),
+    var(--cta-photo),
+    linear-gradient(135deg, rgba(106, 154, 68, 0.22), rgba(217, 164, 65, 0.18));
+  background-size: cover;
+  background-position: center;
+}
+
+.cta-band .eyebrow {
+  color: #d7edb0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .cta-band h2 {
   font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.cta-band .cta-lead {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .newsletter {
@@ -613,10 +609,14 @@ h3 {
   flex: 1 1 240px;
   padding: 0.9em 1.2em;
   border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(0, 0, 0, 0.3);
-  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
   font-size: 1rem;
+}
+
+.newsletter input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .newsletter input:focus {
@@ -1010,7 +1010,6 @@ footer {
   .floaty,
   .product-visual .cup,
   .showcase .cup,
-  .scroll-hint,
   .ripple {
     animation: none !important;
   }
