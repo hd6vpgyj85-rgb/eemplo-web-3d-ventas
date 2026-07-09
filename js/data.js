@@ -258,10 +258,15 @@ function getProduct(id) {
 }
 
 /* ----- Vaso de producto (fotografía real recortada) ----- */
-function productImage(p, extraClass = "", thumb = false) {
+function productImage(p, extraClass = "", thumb = false, eager = false) {
   const src = thumb && p.imgThumb ? p.imgThumb : p.img;
+  // Las imágenes del carrusel (eager=true) cargan de inmediato: con
+  // loading="lazy" algunos navegadores calculan mal la intersección con
+  // el viewport en elementos posicionados con transformaciones 3D y la
+  // imagen nunca llega a pedirse.
+  const loadingAttr = eager ? "" : ' loading="lazy"';
   return `
     <span class="cup ${extraClass}">
-      <img src="${src}" alt="Vaso de ${p.name}, ${p.flavor}" loading="lazy" />
+      <img src="${src}" alt="Vaso de ${p.name}, ${p.flavor}"${loadingAttr} />
     </span>`;
 }

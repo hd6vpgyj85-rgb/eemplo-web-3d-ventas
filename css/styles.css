@@ -31,6 +31,11 @@ body {
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
+  /* El overflow del <body> se "promueve" al viewport según la spec CSS
+     (no crea una caja de recorte normal), así que es seguro para el
+     carrusel 3D. Lo que SÍ rompe preserve-3d en Safari es un overflow
+     no-visible en un contenedor intermedio normal (por eso .bebidas ya
+     no lo tiene: ver .bebidas-bg más abajo). */
   overflow-x: hidden;
 }
 
@@ -288,16 +293,17 @@ h3 {
 /* ---------- Carrusel 3D ---------- */
 .bebidas {
   position: relative;
-  overflow: hidden;
   background: linear-gradient(180deg, var(--bg), #0a0c11 40%, var(--bg));
 }
 
 /* Fondo adaptativo: cada bebida activa tiñe el fondo de la sección.
-   Dos capas (wash-a/wash-b) se alternan con crossfade suave. */
+   Dos capas (wash-a/wash-b) se alternan con crossfade suave. El overflow
+   se recorta aquí (no en .bebidas) para no ser ancestro del carrusel 3D. */
 .bebidas-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
 }
 
@@ -322,6 +328,7 @@ h3 {
 .stage {
   position: relative;
   height: 560px;
+  -webkit-perspective: 1600px;
   perspective: 1600px;
   perspective-origin: 50% 42%;
   margin-top: 10px;
@@ -336,7 +343,9 @@ h3 {
 .ring {
   position: absolute;
   inset: 0;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  -webkit-transform: translateZ(-380px) rotateY(var(--rot, 0deg));
   transform: translateZ(-380px) rotateY(var(--rot, 0deg));
   will-change: transform;
 }
@@ -349,8 +358,11 @@ h3 {
   height: 430px;
   margin-left: -105px;
   margin-top: -215px;
+  -webkit-transform: rotateY(calc(var(--i) * var(--angle)))
+    translateZ(var(--radius, 430px));
   transform: rotateY(calc(var(--i) * var(--angle)))
     translateZ(var(--radius, 430px));
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transition: opacity 0.25s ease;
 }

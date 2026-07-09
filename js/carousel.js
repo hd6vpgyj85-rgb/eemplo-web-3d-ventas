@@ -40,7 +40,7 @@
     a.style.setProperty("--i", i);
     a.dataset.index = i;
     a.innerHTML =
-      `<div class="cell-inner">${productImage(p, "cell-cup", true)}` +
+      `<div class="cell-inner">${productImage(p, "cell-cup", true, true)}` +
       `<div class="cell-label"><div class="cell-name">${p.name}</div>` +
       `<div class="cell-cta">Ver bebida →</div></div></div>`;
     ring.appendChild(a);
