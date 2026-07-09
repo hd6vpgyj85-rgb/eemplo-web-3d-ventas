@@ -12,7 +12,80 @@ const BRAND = {
   facebook: "https://www.facebook.com/share/1BLSXnrDD1/?mibextid=wwXIfr",
   instagram:
     "https://www.instagram.com/net._.ly?igsh=cXN5MW1randmbnY5&utm_source=qr",
+  whatsappHref:
+    "https://wa.me/526568596503?text=" +
+    encodeURIComponent("Hola YUKI, me gustaría reservar una mesa 🍵"),
+  city: "Ciudad Juárez, Chihuahua",
+  address: "Av. Gómez Morín, Ciudad Juárez, Chihuahua, México",
+  mapsLinkHref:
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent("Av. Gómez Morín, Ciudad Juárez, Chihuahua, México"),
+  mapsEmbedSrc:
+    "https://maps.google.com/maps?q=" +
+    encodeURIComponent("Av. Gómez Morín, Ciudad Juárez, Chihuahua, México") +
+    "&t=&z=14&ie=UTF8&iwloc=&output=embed",
+  hours: [
+    { days: "Lunes – Viernes", time: "8:00 am – 8:00 pm" },
+    { days: "Sábado – Domingo", time: "9:00 am – 9:00 pm" },
+  ],
 };
+
+/* Ícono de WhatsApp, reutilizado por el botón flotante y el de reservas. */
+const WA_ICON_SVG = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+  <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.4 14.2c-.23.64-1.15 1.2-1.9 1.36-.5.1-1.16.18-3.4-.73-2.85-1.18-4.7-4.05-4.84-4.24-.14-.19-1.15-1.53-1.15-2.92 0-1.4.73-2.08 1-2.36.24-.27.54-.34.72-.34h.52c.17 0 .4-.03.6.47.24.6.8 2.06.87 2.2.07.15.12.32.02.5-.1.2-.15.3-.3.47-.15.16-.3.36-.43.48-.15.15-.3.3-.13.6.17.32.77 1.28 1.66 2.08 1.15 1.02 2.1 1.34 2.4 1.5.3.15.48.13.65-.08.18-.21.75-.87.95-1.17.2-.3.4-.25.66-.15.28.1 1.75.82 2.05.97.3.15.5.22.57.34.08.13.08.75-.15 1.4Z"/>
+</svg>`;
+
+/* Botón de reservas por WhatsApp, dentro de la sección de contacto. */
+function reserveCardHTML() {
+  return `
+    <div class="reserve-text">
+      <p class="eyebrow">Reservaciones</p>
+      <h3>Aparta tu mesa por WhatsApp</h3>
+      <p>Escríbenos y te confirmamos tu reservación al momento.</p>
+    </div>
+    <a class="btn btn-whatsapp" href="${BRAND.whatsappHref}" target="_blank" rel="noopener noreferrer">
+      ${WA_ICON_SVG}<span>Reservar por WhatsApp</span>
+    </a>`;
+}
+
+/* Botón flotante de WhatsApp, visible en todo el sitio. */
+function whatsappFloatHTML() {
+  return `<a class="wa-float" href="${BRAND.whatsappHref}" target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">${WA_ICON_SVG}</a>`;
+}
+
+/* Horario de atención. */
+function hoursListHTML() {
+  return BRAND.hours
+    .map((h) => `<li><span>${h.days}</span><b>${h.time}</b></li>`)
+    .join("");
+}
+
+/* Ubicación: dirección, horario y mapa embebido (sin necesidad de API key). */
+function locationCardHTML() {
+  return `
+    <div class="location-info">
+      <p class="eyebrow">Visítanos</p>
+      <h3>${BRAND.city}</h3>
+      <p class="location-address">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/>
+          <circle cx="12" cy="9" r="2.4"/>
+        </svg>
+        <span>${BRAND.address}</span>
+      </p>
+      <ul class="hours-list">${hoursListHTML()}</ul>
+      <a class="btn btn-ghost" href="${BRAND.mapsLinkHref}" target="_blank" rel="noopener noreferrer">Ver en Google Maps →</a>
+    </div>
+    <div class="location-map">
+      <iframe
+        src="${BRAND.mapsEmbedSrc}"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Ubicación de YUKI en ${BRAND.city}"
+      ></iframe>
+    </div>`;
+}
 
 /* Íconos de teléfono / correo, para los enlaces de contacto reales. */
 function contactLinksHTML() {

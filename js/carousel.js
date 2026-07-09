@@ -263,6 +263,12 @@
   const footerSocial = document.getElementById("footerSocial");
   if (footerSocial) footerSocial.innerHTML = socialLinksHTML();
 
+  /* ---------- 6d. Reservas por WhatsApp y ubicación/horario ---------- */
+  const reserveCard = document.getElementById("reserveCard");
+  if (reserveCard) reserveCard.innerHTML = reserveCardHTML();
+  const locationCard = document.getElementById("locationCard");
+  if (locationCard) locationCard.innerHTML = locationCardHTML();
+
   /* ---------- 7. Navbar: scroll + menú móvil ---------- */
   const nav = document.getElementById("nav");
   const navLinks = document.getElementById("navLinks");
