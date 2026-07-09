@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AURA · Bebidas Naturales</title>
+    <meta
+      name="description"
+      content="AURA — bebidas naturales elaboradas con fruta real. Descubre nuestros sabores en un carrusel 3D interactivo."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23ff7a18'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- ---------- NAV ---------- -->
+    <nav class="nav" id="nav">
+      <a class="brand" href="#top"><span class="dot"></span>AURA</a>
+      <div class="nav-links" id="navLinks">
+        <a href="#top">Inicio</a>
+        <a href="#bebidas">Bebidas</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#historia">Historia</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
+    </nav>
+
+    <!-- ---------- HERO ---------- -->
+    <header class="hero" id="top">
+      <div class="hero-bg"></div>
+      <div class="hero-floaties" id="heroFloaties"></div>
+      <div class="container">
+        <p class="eyebrow">Bebidas naturales · 100% fruta real</p>
+        <h1>El sabor puro de<br /><span class="grad">la naturaleza</span></h1>
+        <p>
+          Seis sabores elaborados con fruta prensada, sin azúcares añadidos y con
+          esa frescura que solo la naturaleza sabe dar. Gíralos, elígelos, siéntelos.
+        </p>
+        <div class="hero-cta">
+          <a href="#bebidas" class="btn btn-primary">Descubrir sabores →</a>
+          <a href="#historia" class="btn btn-ghost">Nuestra historia</a>
+        </div>
+      </div>
+      <div class="scroll-hint">Desliza ↓</div>
+    </header>
+
+    <!-- ---------- BEBIDAS · CARRUSEL 3D ---------- -->
+    <section class="section bebidas" id="bebidas">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Nuestra colección</p>
+          <h2>Explora las bebidas en 3D</h2>
+          <p>
+            Las botellas giran en círculo entrando desde la derecha. Arrastra para
+            girar, usa las flechas y toca una botella para descubrir su sabor e
+            ingredientes.
+          </p>
+        </div>
+
+        <div class="stage" id="stage" aria-label="Carrusel 3D de bebidas">
+          <div class="ring" id="ring"></div>
+        </div>
+
+        <div class="carousel-controls">
+          <button class="arrow" id="prev" aria-label="Anterior">‹</button>
+          <div class="dots" id="dots"></div>
+          <button class="arrow" id="next" aria-label="Siguiente">›</button>
+        </div>
+        <p class="carousel-hint">
+          Toca la botella del frente para abrir su página de producto.
+        </p>
+      </div>
+    </section>
+
+    <!-- ---------- BENEFICIOS ---------- -->
+    <section class="section" id="beneficios">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Por qué AURA</p>
+          <h2>Naturaleza embotellada</h2>
+          <p>Cada botella es una promesa de pureza, sabor y bienestar.</p>
+        </div>
+        <div class="grid-cards">
+          <article class="card reveal">
+            <div class="ic">🍊</div>
+            <h3>Fruta real prensada</h3>
+            <p>Hasta un 34% de zumo y pulpa natural. Nada de concentrados extraños.</p>
+          </article>
+          <article class="card reveal">
+            <div class="ic">🚫</div>
+            <h3>Sin azúcar añadida</h3>
+            <p>El dulzor viene de la propia fruta. Ligero, limpio y equilibrado.</p>
+          </article>
+          <article class="card reveal">
+            <div class="ic">🌿</div>
+            <h3>Ingredientes limpios</h3>
+            <p>Sin colorantes ni conservantes artificiales. Lista corta y honesta.</p>
+          </article>
+          <article class="card reveal">
+            <div class="ic">♻️</div>
+            <h3>Botella reciclable</h3>
+            <p>Envase 100% reciclable y procesos con energía renovable.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- HISTORIA ---------- -->
+    <section class="section" id="historia">
+      <div class="container split">
+        <div class="txt reveal">
+          <p class="eyebrow">Nuestra historia</p>
+          <h2>Nacidos del huerto, hechos para ti</h2>
+          <p>
+            AURA empezó en un pequeño huerto familiar donde exprimíamos fruta para
+            los que pasaban a visitarnos. Hoy seguimos con la misma idea: capturar
+            el instante exacto de madurez de cada fruta y llevarlo a tu botella sin
+            atajos ni artificios.
+          </p>
+          <p>
+            Trabajamos con productores locales y prensamos en frío para conservar
+            aroma, color y vitaminas. El resultado es una bebida viva.
+          </p>
+          <div class="stat-row">
+            <div class="stat"><b>2016</b><span>Primer huerto</span></div>
+            <div class="stat"><b>6</b><span>Sabores</span></div>
+            <div class="stat"><b>100%</b><span>Fruta real</span></div>
+            <div class="stat"><b>0</b><span>Azúcar añadida</span></div>
+          </div>
+        </div>
+        <div class="showcase reveal" id="historiaShowcase"></div>
+      </div>
+    </section>
+
+    <!-- ---------- CONTACTO / NEWSLETTER ---------- -->
+    <section class="section" id="contacto">
+      <div class="container">
+        <div class="cta-band reveal">
+          <p class="eyebrow">Únete al club AURA</p>
+          <h2>Recibe lanzamientos y ofertas</h2>
+          <p style="color: var(--muted)">
+            Suscríbete y sé el primero en probar nuestros nuevos sabores de temporada.
+          </p>
+          <form class="newsletter" id="newsletter">
+            <input
+              type="email"
+              id="email"
+              placeholder="tu@correo.com"
+              required
+              aria-label="Correo electrónico"
+            />
+            <button class="btn btn-primary" type="submit">Suscribirme</button>
+          </form>
+          <p class="form-msg" id="formMsg"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- FOOTER ---------- -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="brand"><span class="dot"></span>AURA</div>
+            <p style="max-width: 260px">
+              Bebidas naturales elaboradas con fruta real y mucho cariño.
+            </p>
+          </div>
+          <div class="footer-links">
+            <div>
+              <a href="#bebidas">Bebidas</a>
+              <a href="#beneficios">Beneficios</a>
+              <a href="#historia">Historia</a>
+            </div>
+            <div>
+              <a href="#contacto">Contacto</a>
+              <a href="#top">Inicio</a>
+              <a href="#bebidas">Sabores</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          © 2026 AURA Bebidas Naturales · Sitio de demostración.
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/carousel.js"></script>
+  </body>
+</html>
