@@ -253,6 +253,16 @@
     });
   }
 
+  /* ---------- 6c. Contacto real: teléfono, correo y redes ---------- */
+  const contactInfo = document.getElementById("contactInfo");
+  if (contactInfo) {
+    contactInfo.innerHTML = contactLinksHTML() + `<div class="social-row">${socialLinksHTML()}</div>`;
+  }
+  const footerContact = document.getElementById("footerContact");
+  if (footerContact) footerContact.innerHTML = contactLinksHTML();
+  const footerSocial = document.getElementById("footerSocial");
+  if (footerSocial) footerSocial.innerHTML = socialLinksHTML();
+
   /* ---------- 7. Navbar: scroll + menú móvil ---------- */
   const nav = document.getElementById("nav");
   const navLinks = document.getElementById("navLinks");

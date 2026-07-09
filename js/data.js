@@ -5,6 +5,54 @@
    temizar su página y para el fondo adaptativo del carrusel.
    ============================================================ */
 
+const BRAND = {
+  phone: "+52 656 859 6503",
+  phoneHref: "tel:+526568596503",
+  email: "iygd505@gmail.com",
+  facebook: "https://www.facebook.com/share/1BLSXnrDD1/?mibextid=wwXIfr",
+  instagram:
+    "https://www.instagram.com/net._.ly?igsh=cXN5MW1randmbnY5&utm_source=qr",
+};
+
+/* Íconos de teléfono / correo, para los enlaces de contacto reales. */
+function contactLinksHTML() {
+  return `
+    <a class="contact-item" href="${BRAND.phoneHref}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 4h3l2 5-2.4 1.5a11.5 11.5 0 0 0 5.4 5.4L14.5 13.5l5 2v3a2 2 0 0 1-2 2A16.5 16.5 0 0 1 3 6a2 2 0 0 1 2-2Z"/>
+      </svg>
+      <span>${BRAND.phone}</span>
+    </a>
+    <a class="contact-item" href="mailto:${BRAND.email}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2.4"/>
+        <path d="m3.5 7 8.5 6 8.5-6"/>
+      </svg>
+      <span>${BRAND.email}</span>
+    </a>`;
+}
+
+/* Íconos de Facebook / Instagram, enlazando a los perfiles reales de YUKI. */
+function socialLinksHTML() {
+  return `
+    <a class="social-btn" href="${BRAND.facebook}" target="_blank" rel="noopener noreferrer" aria-label="YUKI en Facebook">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.6"/>
+        <path fill="currentColor" d="M13.4 20v-6.6h2.2l.33-2.57h-2.53v-1.64c0-.74.2-1.25 1.27-1.25h1.36V5.62A18 18 0 0 0 14 5.5c-1.97 0-3.32 1.2-3.32 3.4v1.93H8.5v2.57h2.18V20Z"/>
+      </svg>
+    </a>
+    <a class="social-btn" href="${BRAND.instagram}" target="_blank" rel="noopener noreferrer" aria-label="YUKI en Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3.3" y="3.3" width="17.4" height="17.4" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17" cy="7" r="0.9" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>`;
+}
+
 const PRODUCTS = [
   {
     id: "marmoleado",

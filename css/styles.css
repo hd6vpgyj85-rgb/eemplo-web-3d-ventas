@@ -558,10 +558,7 @@ h3 {
 }
 
 /* ---------- Contacto / Newsletter ---------- */
-/* --cta-photo queda "none" hasta que se agregue la imagen de fondo real;
-   el degradado de marca sirve de respaldo mientras tanto. */
 .cta-band {
-  --cta-photo: none;
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
@@ -575,8 +572,7 @@ h3 {
       rgba(6, 8, 6, 0.32) 50%,
       rgba(6, 8, 6, 0.64)
     ),
-    var(--cta-photo),
-    linear-gradient(135deg, rgba(106, 154, 68, 0.22), rgba(217, 164, 65, 0.18));
+    url("../img/fondo/club-yuki.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -631,6 +627,70 @@ h3 {
   min-height: 1.2em;
 }
 
+/* ---------- Contacto real: teléfono, correo y redes ---------- */
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px 34px;
+  margin-top: 30px;
+}
+
+.contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: color 0.2s ease;
+}
+
+.contact-item svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.contact-item:hover {
+  color: var(--text);
+}
+
+.contact-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.social-row {
+  display: flex;
+  gap: 12px;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.social-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.social-btn:hover {
+  color: var(--brand);
+  border-color: rgba(106, 154, 68, 0.5);
+  transform: translateY(-2px);
+}
+
 /* ---------- Footer ---------- */
 footer {
   border-top: 1px solid var(--line);
@@ -665,6 +725,27 @@ footer {
 
 .footer-links a:hover {
   color: var(--text);
+}
+
+.footer-heading {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+}
+
+.footer-contact-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-contact-col .social-row {
+  margin-top: 14px;
+}
+
+.footer-contact-col .contact-item {
+  font-size: 0.92rem;
 }
 
 .footer-bottom {

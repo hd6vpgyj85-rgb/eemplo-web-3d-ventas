@@ -1,10 +1,10 @@
-# YUKI · Matcha & Boba — Sitio 3D de ventas
+# YUKI · Matcha & Boba — Sitio web
 
-Sitio web de demostración para una barra de matcha y boba. La sección
-**Bebidas** muestra un **carrusel 3D** en el que cada vaso entra por la
-derecha y avanza en círculo hacia la izquierda, y el **fondo cambia de color
-según la bebida activa**. Al hacer clic en un vaso se abre su **página
-individual** con imagen, ingredientes y sabor.
+Sitio web para YUKI, una barra de matcha y boba. La sección **Bebidas**
+muestra un **carrusel 3D** en el que cada vaso entra por la derecha y avanza
+en círculo hacia la izquierda, y el **fondo cambia de color según la bebida
+activa**. Al hacer clic en un vaso se abre su **página individual** con
+imagen, ingredientes y sabor.
 
 ## ✨ Características
 
@@ -18,7 +18,11 @@ individual** con imagen, ingredientes y sabor.
 - **Páginas de producto individuales** (`producto.html?id=<bebida>`) con:
   - Fotografía real del vaso, sabor detallado, perfil, calorías e **ingredientes**.
   - Enlaces a las demás bebidas.
-- Sitio completo: hero, beneficios, historia, newsletter y footer. Responsive y con menú móvil.
+- **Contacto real**: teléfono y correo (enlaces `tel:`/`mailto:`) y redes sociales
+  (Facebook, Instagram) definidos una sola vez en `js/data.js` (`BRAND`) y usados
+  tanto en la sección de contacto como en el footer de ambas páginas.
+- Sitio completo: hero, beneficios, historia, newsletter, contacto y footer.
+  Responsive y con menú móvil.
 
 ## 🗂️ Estructura
 
@@ -26,10 +30,11 @@ individual** con imagen, ingredientes y sabor.
 index.html          Portada con el carrusel 3D y todas las secciones
 producto.html        Plantilla de la ficha de producto (lee ?id= de la URL)
 css/styles.css       Estilos del sitio, el carrusel y el fondo adaptativo
-js/data.js           Datos de los productos + helper de imagen
+js/data.js           Datos de los productos, contacto/redes (BRAND) + helpers
 js/carousel.js       Lógica del carrusel 3D, fondo adaptativo e interacciones
 js/producto.js       Renderiza la ficha de producto según el ?id=
 img/productos/       Fotografía de cada bebida (versión completa + thumbnail)
+img/fondo/           Fotografía del local, usada como fondo de la sección de contacto
 ```
 
 ## ▶️ Cómo verlo

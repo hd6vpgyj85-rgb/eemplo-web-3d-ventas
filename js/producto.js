@@ -86,6 +86,12 @@
     </section>
   `;
 
+  /* ---------- Contacto real en el footer: teléfono, correo y redes ---------- */
+  const footerContact = document.getElementById("footerContact");
+  if (footerContact) footerContact.innerHTML = contactLinksHTML();
+  const footerSocial = document.getElementById("footerSocial");
+  if (footerSocial) footerSocial.innerHTML = socialLinksHTML();
+
   /* ---------- Menú móvil ---------- */
   const navLinks = document.getElementById("navLinks");
   const navToggle = document.getElementById("navToggle");
