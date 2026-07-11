@@ -386,11 +386,17 @@ h3 {
 .cup img {
   width: 100%;
   height: auto;
+  /* Proporción real de las fotos (359x460 / 593x760), declarada a propósito:
+     dentro del carrusel 3D (preserve-3d anidado + flexbox), Safari calcula
+     mal el height:auto de la imagen y la corta a la mitad; con aspect-ratio
+     el navegador reserva el alto correcto sin depender de ese cálculo. */
+  aspect-ratio: 359 / 460;
   display: block;
 }
 
 .cell .cup {
   width: 180px;
+  flex-shrink: 0;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
