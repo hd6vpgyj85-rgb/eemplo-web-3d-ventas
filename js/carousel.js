@@ -87,6 +87,30 @@
   let paused = false;
   let lastActive = -1;
 
+  // Animación suave para saltos programáticos (flechas, puntos, o el
+  // encaje al soltar el arrastre): interpola rotation cuadro a cuadro en
+  // vez de teleportarlo, así la opacidad (recalculada cada frame a partir
+  // de rotation) queda siempre en sync con la posición 3D.
+  let isAnimating = false;
+  let animFrom = 0;
+  let animTo = 0;
+  let animStart = 0;
+  let animDuration = 420;
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function animateTo(target) {
+    const distance = Math.abs(target - rotation);
+    animDuration = Math.max(150, Math.min(420, (distance / angle) * 420));
+    animFrom = rotation;
+    animTo = target;
+    animStart = performance.now();
+    isAnimating = true;
+    velocity = autoSpeed;
+  }
+
   function render() {
     ring.style.setProperty("--rot", rotation + "deg");
 
@@ -115,8 +139,12 @@
     });
   }
 
-  function tick() {
-    if (!dragging && !paused) {
+  function tick(now) {
+    if (isAnimating) {
+      const t = Math.min((now - animStart) / animDuration, 1);
+      rotation = animFrom + (animTo - animFrom) * easeOutCubic(t);
+      if (t >= 1) isAnimating = false;
+    } else if (!dragging && !paused) {
       rotation += velocity;
       // suavizar el retorno a la velocidad de crucero tras un impulso
       velocity += (autoSpeed - velocity) * 0.03;
@@ -130,8 +158,7 @@
     // llevar la bebida i al frente por el camino más corto
     const target = -i * angle;
     let diff = ((target - rotation) % 360 + 540) % 360 - 180;
-    rotation += diff;
-    velocity = autoSpeed;
+    animateTo(rotation + diff);
     pulse();
   }
 
@@ -166,6 +193,7 @@
 
   function onDown(e) {
     dragging = true;
+    isAnimating = false; // el arrastre toma el control de inmediato
     startX = e.clientX;
     startRot = rotation;
     moved = 0;
@@ -182,12 +210,11 @@
   function onUp() {
     if (!dragging) return;
     dragging = false;
-    velocity = autoSpeed;
-    // fijar a la bebida más cercana
+    // fijar a la bebida más cercana con una animación corta
     const nearest = Math.round(-rotation / angle);
     const target = -nearest * angle;
     let diff = ((target - rotation) % 360 + 540) % 360 - 180;
-    rotation += diff;
+    animateTo(rotation + diff);
     pulse();
   }
 

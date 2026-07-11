@@ -364,7 +364,10 @@ h3 {
     translateZ(var(--radius, 430px));
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  transition: opacity 0.25s ease;
+  /* Sin transición de opacity: se recalcula cada frame en JS a partir de
+     rotation, que ya cambia de forma continua (arrastre, giro automático
+     o la animación de salto). Una transición CSS aquí compite con esas
+     actualizaciones cuadro a cuadro y se ve con retraso/trabado. */
 }
 
 .cell-inner {
