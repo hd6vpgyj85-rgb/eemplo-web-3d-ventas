@@ -69,14 +69,30 @@
   function updateBackground(index) {
     if (!washA || !washB) return;
     const p = PRODUCTS[index];
-    washBack.style.background = washGradient(p);
-    // forzar reflow para que la transición de opacidad se aprecie
-    void washBack.offsetWidth;
-    washBack.classList.add("show");
-    washFront.classList.remove("show");
-    const tmp = washFront;
-    washFront = washBack;
-    washBack = tmp;
+    const incoming = washBack;
+    const outgoing = washFront;
+    incoming.style.background = washGradient(p);
+    // Dos rAF en vez de leer offsetWidth: deja que el navegador pinte el
+    // nuevo fondo y recién en el frame siguiente dispara la transición de
+    // opacidad, sin forzar un reflow síncrono (evita otro punto de traqueteo).
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        incoming.classList.add("show");
+        outgoing.classList.remove("show");
+      });
+    });
+    washFront = incoming;
+    washBack = outgoing;
+  }
+
+  // Al arrastrar rápido, la bebida "activa" puede cambiar varias veces por
+  // segundo; llamar updateBackground() (que fuerza un reflow) en cada una
+  // de esas veces es justo lo que causaba el traqueteo al deslizar rápido.
+  // Se posterga hasta que el índice deja de cambiar por un instante.
+  let bgDebounceTimer = null;
+  function scheduleBackgroundUpdate(index) {
+    clearTimeout(bgDebounceTimer);
+    bgDebounceTimer = setTimeout(() => updateBackground(index), 120);
   }
 
   /* ---------- 2. Estado y bucle de animación ---------- */
@@ -120,7 +136,7 @@
       cells.forEach((c, i) => c.classList.toggle("is-active", i === active));
       dots.forEach((d, i) => d.classList.toggle("active", i === active));
       lastActive = active;
-      updateBackground(active);
+      scheduleBackgroundUpdate(active);
     }
 
     // Opacidad / profundidad por bebida según su ángulo real hacia el frente.
